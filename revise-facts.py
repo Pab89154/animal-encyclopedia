@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
-"""Deduplicate and rewrite animal fact arrays in index.html."""
+"""Deduplicate and rewrite animal fact arrays in index.html.
 
+Skips animals listed in strong_profiles.json — those facts are already curated.
+Run after add-world-facts.py and strengthen-facts.py.
+"""
+
+import importlib.util
+import json
 import re
 import hashlib
 from pathlib import Path
 
+_DEDUPE = importlib.util.spec_from_file_location(
+    "dedupe_facts", Path(__file__).parent / "dedupe-facts.py"
+)
+_dedupe_mod = importlib.util.module_from_spec(_DEDUPE)
+_DEDUPE.loader.exec_module(_dedupe_mod)
+dedupe_sections = _dedupe_mod.dedupe_sections
+
 INDEX = Path(__file__).parent / "index.html"
+PROFILES_PATH = Path(__file__).parent / "strong_profiles.json"
 MIN_FACTS = 2
 MAX_FACTS = 3
 
@@ -14,13 +28,36 @@ GENERIC_RE = re.compile(
     r"is a fascinating \w+!|"
     r"Many kids love learning about|"
     r"have amazing abilities for life in the wild|"
+    r"have amazing adaptations for their habitat|"
     r"Scientists still discover new things about|"
+    r"Scientists still learn new things about|"
     r"Their diet helps them stay strong and healthy|"
     r"What they eat fits life in a \w+ home|"
+    r"eat foods suited to life in a \w+ home|"
     r"Their body size helps them survive in the wild|"
+    r"sized for survival in the wild|"
+    r"live in habitats that match their wild range|"
+    r"are part of a rich web of life on Earth|"
     r"Compared to other animals, .+ are built for their habitat|"
     r"They make their home in \w+ areas\.?|"
-    r"Their \w+ habitat gives them food and shelter"
+    r"Their \w+ habitat gives them food and shelter|"
+    r"Population estimates vary — some mammals|"
+    r"Scientists use tracking, cameras, and surveys to estimate wild numbers|"
+    r"Most mammals have hair or fur, even if it is very short|"
+    r"Bird bones are often hollow, which keeps their bodies lighter for flight|"
+    r"Mammals are warm-blooded, so they stay active in cool weather|"
+    r"Young mammals often drink mother's milk when they are first born|"
+    r"Birds lay eggs, and most species care for chicks in a nest|"
+    r"Feathers keep birds warm and help many species fly|"
+    r"Salt water covers most of our planet, and many animals live there full-time|"
+    r"Tides, currents, and reefs change where food and shelter are found|"
+    r"Ocean meals range from tiny plankton to large fish and mammals|"
+    r"Filter feeders, hunters, and plant-eaters all share the same water|"
+    r"Ocean animals range from microscopic to longer than a school bus|"
+    r"Open grassy land lets them see danger and prey from far away|"
+    r"Dry and rainy seasons change what food is easy to find|"
+    r"Adults are built to move and feed in their home range|"
+    r"Scientists study their size and shape to learn how they survive"
     r")",
     re.I,
 )
@@ -269,6 +306,15 @@ def build_category(primary, existing, extras, animal_id, min_count=MIN_FACTS):
     return facts[:MAX_FACTS]
 
 
+def merge_existing(animal, existing, *extra_fields):
+    merged = list(existing or [])
+    for field in extra_fields:
+        val = (animal.get(field) or "").strip()
+        if val and not any(is_near_duplicate(val, kept) for kept in merged):
+            merged.append(val)
+    return merged
+
+
 def build_all_facts(animal, existing_arrays):
     habitat = animal.get("habitat", "Forest")
     typ = animal.get("type", "Mammal")
@@ -277,15 +323,25 @@ def build_all_facts(animal, existing_arrays):
     return {
         "funFacts": build_category(
             animal.get("funFact", ""),
-            existing_arrays.get("funFacts"),
-            TYPE_FUN.get(typ, TYPE_FUN["Mammal"]),
+            [
+                item
+                for item in (existing_arrays.get("funFacts") or [])
+                if not is_near_duplicate(item, animal.get("extraFact", ""))
+            ],
+            [],
             aid + "-fun",
+            min_count=1,
         ),
         "didYouKnowFacts": build_category(
             animal.get("extraFact", ""),
-            existing_arrays.get("didYouKnowFacts"),
-            TYPE_DIDYOU.get(typ, TYPE_DIDYOU["Mammal"]),
+            [
+                item
+                for item in (existing_arrays.get("didYouKnowFacts") or [])
+                if not is_near_duplicate(item, animal.get("funFact", ""))
+            ],
+            [],
             aid + "-dyk",
+            min_count=1,
         ),
         "livesInFacts": build_category(
             animal.get("livesIn", ""),
@@ -380,6 +436,10 @@ def replace_arrays(block, arrays):
 
 
 def main():
+    profiles = {}
+    if PROFILES_PATH.exists():
+        profiles = json.loads(PROFILES_PATH.read_text(encoding="utf-8"))
+
     text = INDEX.read_text(encoding="utf-8")
     start = text.index("const ANIMALS = [")
     i = start + len("const ANIMALS = [")
@@ -406,9 +466,49 @@ def main():
             chunks.append(block)
             continue
 
+        if animal["id"] in profiles:
+            chunks.append(block)
+            continue
+
         existing = parse_existing_arrays(block)
         arrays = build_all_facts(animal, existing)
-        chunks.append(replace_arrays(block, arrays))
+        merged = {**animal, **arrays}
+        for field in (
+            "lifespan",
+            "lifespanFacts",
+            "population",
+            "populationFacts",
+            "conservation",
+            "conservationFacts",
+        ):
+            match = re.search(rf'{field}:\s*"((?:\\.|[^"\\])*)"', block)
+            if match:
+                merged[field] = match.group(1)
+            array_match = re.search(rf"{field}:\s*\[(.*?)\]", block, re.S)
+            if array_match:
+                merged[field] = re.findall(
+                    r'"((?:\\.|[^"\\])*)"', array_match.group(1)
+                )
+        deduped = dedupe_sections(merged)
+        arrays = {key: deduped[key] for key in arrays}
+        block = replace_arrays(block, arrays)
+        for legacy, array_key in (
+            ("funFact", "funFacts"),
+            ("extraFact", "didYouKnowFacts"),
+            ("livesIn", "livesInFacts"),
+            ("diet", "dietFacts"),
+            ("size", "sizeFacts"),
+        ):
+            val = deduped.get(legacy, "")
+            pattern = rf'({legacy}:\s*")((?:\\.|[^"\\])*)(")'
+            if re.search(pattern, block):
+                block = re.sub(
+                    pattern,
+                    rf"\1{_dedupe_mod.json_escape(val)}\3",
+                    block,
+                    count=1,
+                )
+        chunks.append(block)
         updated += 1
 
     rebuilt = section[: markers[0].start() + 1] + "".join(chunks)
