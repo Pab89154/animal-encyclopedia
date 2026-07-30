@@ -15,6 +15,24 @@
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="apple-touch-icon" href="logo.png" />
     <link rel="manifest" href="manifest.webmanifest" />
+    <script>
+      (function () {
+        try {
+          var key = "wildwonders-night-mode";
+          var saved = localStorage.getItem(key);
+          var dark =
+            saved === "true" ||
+            (saved !== "false" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) {
+            document.documentElement.classList.add("night-mode");
+            document.documentElement.style.colorScheme = "dark";
+          } else {
+            document.documentElement.style.colorScheme = "light";
+          }
+        } catch (e) {}
+      })();
+    </script>
     <title>Wild Wonders — Animal Encyclopedia for Kids</title>
     <style>
       *,
@@ -40,6 +58,43 @@
         --text-muted: #6b5b4f;
         --radius: 16px;
         --shadow: 0 4px 20px rgba(45, 80, 22, 0.1);
+        color-scheme: light;
+      }
+
+      html.night-mode {
+        --bg: #121a14;
+        --bg-accent: #1a241c;
+        --surface: #1e2a22;
+        --forest: #8fbf6a;
+        --forest-light: #a8d484;
+        --ocean: #5eb3d4;
+        --ocean-light: #7ec8e0;
+        --earth: #d4b45a;
+        --earth-light: #e6c97a;
+        --sand: #1a221c;
+        --text: #e8efe3;
+        --text-muted: #a8b5a0;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        color-scheme: dark;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html:not(.night-mode):not(.day-mode) {
+          --bg: #121a14;
+          --bg-accent: #1a241c;
+          --surface: #1e2a22;
+          --forest: #8fbf6a;
+          --forest-light: #a8d484;
+          --ocean: #5eb3d4;
+          --ocean-light: #7ec8e0;
+          --earth: #d4b45a;
+          --earth-light: #e6c97a;
+          --sand: #1a221c;
+          --text: #e8efe3;
+          --text-muted: #a8b5a0;
+          --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+          color-scheme: dark;
+        }
       }
 
       body {
@@ -243,11 +298,77 @@
       .header-actions-grid .bug-report-btn,
       .header-actions-grid .habitat-map-btn,
       .header-actions-grid .random-btn,
-      .header-actions-grid .translate-btn {
+      .header-actions-grid .translate-btn,
+      .header-actions-grid .night-mode-btn {
         padding: 0.28rem 0.55rem;
         font-size: 0.72rem;
         border-radius: 999px;
         line-height: 1.2;
+      }
+
+      .night-mode-btn {
+        background: var(--surface);
+        color: var(--forest);
+        border: 1px solid rgba(45, 80, 22, 0.22);
+        font-family: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.15s, background 0.15s;
+        box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
+      }
+
+      .night-mode-btn:hover {
+        transform: translateY(-1px);
+        background: var(--bg-accent);
+      }
+
+      html.night-mode .app {
+        background:
+          radial-gradient(ellipse at 10% 0%, rgba(143, 191, 106, 0.12) 0%, transparent 50%),
+          radial-gradient(ellipse at 90% 100%, rgba(94, 179, 212, 0.1) 0%, transparent 50%),
+          linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 40%, var(--sand) 100%);
+      }
+
+      html.night-mode .animal-card,
+      html.night-mode .detail-card,
+      html.night-mode .modal,
+      html.night-mode .panel,
+      html.night-mode .toolbar,
+      html.night-mode input,
+      html.night-mode textarea,
+      html.night-mode select {
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      html.night-mode .add-animal-btn,
+      html.night-mode .feedback-btn,
+      html.night-mode .bug-report-btn,
+      html.night-mode .habitat-map-btn,
+      html.night-mode .translate-btn,
+      html.night-mode .night-mode-btn,
+      html.night-mode .filter-pill {
+        background: var(--surface);
+        color: var(--forest-light);
+        border-color: rgba(143, 191, 106, 0.35);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      html.night-mode .brand-logo {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        background: #1a241c;
+      }
+
+      html.night-mode .search-input,
+      html.night-mode .form-card,
+      html.night-mode .detail-panel,
+      html.night-mode .review-item,
+      html.night-mode .animal-card {
+        border-color: rgba(143, 191, 106, 0.22);
+      }
+
+      html.night-mode .fact-label {
+        color: var(--forest-light);
       }
 
       .add-animal-btn,
@@ -1217,6 +1338,16 @@
               <div class="header-actions">
                 <p class="animal-count" id="animal-count"></p>
                 <div class="header-actions-grid">
+                  <button
+                    type="button"
+                    class="night-mode-btn"
+                    id="night-mode-btn"
+                    title="Night mode"
+                    aria-label="Toggle night mode"
+                    aria-pressed="false"
+                  >
+                    🌙 Night
+                  </button>
                   <button type="button" class="add-animal-btn" id="add-animal-btn">
                     ➕ Add Animal
                   </button>
@@ -34697,6 +34828,70 @@
       const animalCountEl = document.getElementById("animal-count");
       const searchInput = document.getElementById("search-input");
       const randomBtn = document.getElementById("random-btn");
+      const nightModeBtn = document.getElementById("night-mode-btn");
+      const NIGHT_MODE_KEY = "wildwonders-night-mode";
+
+      function systemPrefersDark() {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+      }
+
+      function isNightModeOn() {
+        return document.documentElement.classList.contains("night-mode");
+      }
+
+      function applyNightMode(enabled, persist) {
+        document.documentElement.classList.toggle("night-mode", enabled);
+        document.documentElement.classList.toggle("day-mode", !enabled);
+        document.documentElement.style.colorScheme = enabled ? "dark" : "light";
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) themeMeta.setAttribute("content", enabled ? "#121a14" : "#2d5016");
+        if (nightModeBtn) {
+          nightModeBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+          nightModeBtn.title = enabled ? "Day mode" : "Night mode";
+          nightModeBtn.setAttribute(
+            "aria-label",
+            enabled ? "Switch to day mode" : "Switch to night mode"
+          );
+          nightModeBtn.textContent = enabled ? "☀️ Day" : "🌙 Night";
+        }
+        if (persist) {
+          try {
+            localStorage.setItem(NIGHT_MODE_KEY, enabled ? "true" : "false");
+          } catch (e) {}
+        }
+      }
+
+      function resolveNightMode() {
+        try {
+          const saved = localStorage.getItem(NIGHT_MODE_KEY);
+          if (saved === "true") return true;
+          if (saved === "false") return false;
+        } catch (e) {}
+        return systemPrefersDark();
+      }
+
+      applyNightMode(resolveNightMode(), false);
+
+      if (nightModeBtn) {
+        nightModeBtn.addEventListener("click", () => {
+          applyNightMode(!isNightModeOn(), true);
+        });
+      }
+
+      try {
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", () => {
+            try {
+              if (localStorage.getItem(NIGHT_MODE_KEY) == null) {
+                applyNightMode(systemPrefersDark(), false);
+              }
+            } catch (e) {
+              applyNightMode(systemPrefersDark(), false);
+            }
+          });
+      } catch (e) {}
+
       const addAnimalBtn = document.getElementById("add-animal-btn");
       const filterGrid = document.getElementById("filter-grid");
       const animalGrid = document.getElementById("animal-grid");
