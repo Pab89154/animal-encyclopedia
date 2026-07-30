@@ -7,6 +7,8 @@
       name="description"
       content="Wild Wonders — a fun animal encyclopedia for kids with facts, habitats, and diets!"
     />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="logo.png" />
     <title>Wild Wonders — Animal Encyclopedia for Kids</title>
     <style>
       *,
@@ -91,21 +93,14 @@
         text-align: left;
       }
 
-      .header-icon {
-        font-size: 2.25rem;
-        line-height: 1;
-        animation: sway 4s ease-in-out infinite;
+      .brand-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        object-fit: cover;
         flex-shrink: 0;
-      }
-
-      @keyframes sway {
-        0%,
-        100% {
-          transform: rotate(-5deg);
-        }
-        50% {
-          transform: rotate(5deg);
-        }
+        box-shadow: 0 4px 12px rgba(11, 49, 56, 0.18);
+        background: #fff;
       }
 
       .header h1 {
@@ -1150,6 +1145,12 @@
           grid-template-columns: repeat(2, auto);
         }
 
+        .brand-logo {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+        }
+
         .tagline {
           font-size: 0.85rem;
         }
@@ -1195,7 +1196,13 @@
           <header class="header">
             <div class="header-top">
               <div class="header-brand">
-                <div class="header-icon">🌿</div>
+                <img
+                  class="brand-logo"
+                  src="logo.png"
+                  alt="Wild Wonders logo"
+                  width="56"
+                  height="56"
+                />
                 <div>
                   <h1>Wild Wonders</h1>
                   <p class="tagline">Your fun animal encyclopedia for kids!</p>
@@ -1772,7 +1779,7 @@
         </section>
 
         <footer class="footer">
-          Made with 🌿 for curious kids everywhere
+          Made with curiosity for kids everywhere
           <div class="footer-links">
             <button type="button" class="footer-link" id="feedback-link">
               💬 Send feedback
