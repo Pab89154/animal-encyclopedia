@@ -20,11 +20,8 @@
         try {
           var key = "wildwonders-night-mode";
           var saved = localStorage.getItem(key);
-          var dark =
-            saved === "true" ||
-            (saved !== "false" &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches);
-          if (dark) {
+          // Only follow explicit user choice; never system Dark Mode
+          if (saved === "true") {
             document.documentElement.classList.add("night-mode");
             document.documentElement.style.colorScheme = "dark";
           } else {
@@ -78,24 +75,6 @@
         color-scheme: dark;
       }
 
-      @media (prefers-color-scheme: dark) {
-        html:not(.night-mode):not(.day-mode) {
-          --bg: #121a14;
-          --bg-accent: #1a241c;
-          --surface: #1e2a22;
-          --forest: #8fbf6a;
-          --forest-light: #a8d484;
-          --ocean: #5eb3d4;
-          --ocean-light: #7ec8e0;
-          --earth: #d4b45a;
-          --earth-light: #e6c97a;
-          --sand: #1a221c;
-          --text: #e8efe3;
-          --text-muted: #a8b5a0;
-          --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-          color-scheme: dark;
-        }
-      }
 
       body {
         font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -34831,10 +34810,6 @@
       const nightModeBtn = document.getElementById("night-mode-btn");
       const NIGHT_MODE_KEY = "wildwonders-night-mode";
 
-      function systemPrefersDark() {
-        return window.matchMedia("(prefers-color-scheme: dark)").matches;
-      }
-
       function isNightModeOn() {
         return document.documentElement.classList.contains("night-mode");
       }
@@ -34863,11 +34838,10 @@
 
       function resolveNightMode() {
         try {
-          const saved = localStorage.getItem(NIGHT_MODE_KEY);
-          if (saved === "true") return true;
-          if (saved === "false") return false;
-        } catch (e) {}
-        return systemPrefersDark();
+          return localStorage.getItem(NIGHT_MODE_KEY) === "true";
+        } catch (e) {
+          return false;
+        }
       }
 
       applyNightMode(resolveNightMode(), false);
@@ -34877,20 +34851,6 @@
           applyNightMode(!isNightModeOn(), true);
         });
       }
-
-      try {
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", () => {
-            try {
-              if (localStorage.getItem(NIGHT_MODE_KEY) == null) {
-                applyNightMode(systemPrefersDark(), false);
-              }
-            } catch (e) {
-              applyNightMode(systemPrefersDark(), false);
-            }
-          });
-      } catch (e) {}
 
       const addAnimalBtn = document.getElementById("add-animal-btn");
       const filterGrid = document.getElementById("filter-grid");
