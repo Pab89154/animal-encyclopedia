@@ -18,13 +18,16 @@
     <script>
       (function () {
         try {
-          var key = "wildwonders-night-mode";
+          var key = "wildwonders-night-mode-v2";
+          // Drop legacy key that may have been set while UI followed iOS Dark Mode
+          try { localStorage.removeItem("wildwonders-night-mode"); } catch (e) {}
           var saved = localStorage.getItem(key);
           // Only follow explicit user choice; never system Dark Mode
           if (saved === "true") {
             document.documentElement.classList.add("night-mode");
             document.documentElement.style.colorScheme = "dark";
           } else {
+            document.documentElement.classList.remove("night-mode");
             document.documentElement.style.colorScheme = "light";
           }
         } catch (e) {}
@@ -1039,6 +1042,15 @@
         font-size: 1.05rem;
       }
 
+      .loading-animals {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 2rem 1rem;
+      }
+
       .screen {
         display: none;
       }
@@ -1308,6 +1320,8 @@
                   alt="Wild Wonders logo"
                   width="56"
                   height="56"
+                  decoding="async"
+                  fetchpriority="high"
                 />
                 <div>
                   <h1>Wild Wonders</h1>
@@ -1399,7 +1413,9 @@
 
           <div class="animals-area">
             <p class="results-info" id="results-info"></p>
-            <div class="animal-grid" id="animal-grid"></div>
+            <div class="animal-grid" id="animal-grid">
+              <p class="loading-animals" id="loading-animals">Loading animals…</p>
+            </div>
             <div class="empty-state" id="empty-state" hidden>
               <div class="empty-icon">🦔</div>
               <p>No animals found — try a different name!</p>
@@ -1713,7 +1729,7 @@
 
           <div class="habitat-map-card">
             <h2 class="habitat-map-title">Explore where they live!</h2>
-            <img
+            <img loading="lazy" decoding="async"
               id="habitat-map-image"
               class="habitat-map-image"
               src="images/world-habitats-map.png"
@@ -34808,7 +34824,7 @@
       const searchInput = document.getElementById("search-input");
       const randomBtn = document.getElementById("random-btn");
       const nightModeBtn = document.getElementById("night-mode-btn");
-      const NIGHT_MODE_KEY = "wildwonders-night-mode";
+      const NIGHT_MODE_KEY = "wildwonders-night-mode-v2";
 
       function isNightModeOn() {
         return document.documentElement.classList.contains("night-mode");
@@ -36345,6 +36361,9 @@
       let pendingTranslateLang = null;
 
       function googleTranslateElementInit() {
+        if (!window.google || !google.translate || !google.translate.TranslateElement) {
+          return;
+        }
         new google.translate.TranslateElement(
           {
             pageLanguage: "en",
@@ -36406,6 +36425,7 @@
         const translateBtn = document.getElementById("translate-btn");
         const translateMenu = document.getElementById("translate-menu");
         const translateWrap = document.getElementById("translate-wrap");
+        if (!translateBtn || !translateMenu || !translateWrap) return;
 
         translateBtn.addEventListener("click", (event) => {
           event.stopPropagation();
@@ -36428,6 +36448,6 @@
 
       initTranslateControls();
     </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
   </body>
 </html>
