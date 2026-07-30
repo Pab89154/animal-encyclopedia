@@ -20,15 +20,20 @@
       "purpose": "any"
     },
     {
-      "src": "apple-touch-icon-dark.png",
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "apple-touch-icon-light.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "apple-touch-icon.png",
+      "src": "apple-touch-icon-dark.png",
       "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "maskable"
+      "type": "image/png"
     }
   ]
 }
