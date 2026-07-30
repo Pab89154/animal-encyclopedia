@@ -7,7 +7,7 @@
       name="description"
       content="Wild Wonders — a fun animal encyclopedia for kids with facts, habitats, and diets!"
     />
-    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="theme-color" content="#2d5016" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Wild Wonders" />
@@ -44,49 +44,53 @@
       }
 
       :root {
-        --blue: #1e3a8a;
-        --blue-dark: #152e6e;
-        --blue-light: #2a4ba8;
-        --green: #10b981;
-        --green-dark: #059669;
-        --green-light: #34d399;
-        --white: #ffffff;
-        --bg: #f8fafc;
+        --bg: #f4f7ef;
+        --bg-accent: #e8f0e0;
         --surface: #ffffff;
-        /* Habitat accent colors (kept for pills/badges) */
         --forest: #2d5016;
         --forest-light: #4a7c2e;
         --ocean: #1a6b8a;
         --ocean-light: #3a9ec4;
         --earth: #8b6914;
         --earth-light: #c4a035;
-        --text: #1f2937;
-        --text-muted: #6b7280;
+        --sand: #f5ead6;
+        --text: #3d2c1e;
+        --text-muted: #6b5b4f;
+        /* Chrome aliases (layout still uses --blue; mapped to forest) */
+        --blue: #2d5016;
+        --blue-dark: #1e360f;
+        --blue-light: #4a7c2e;
+        --green: #4a7c2e;
+        --green-dark: #2d5016;
+        --green-light: #6b9e45;
+        --white: #ffffff;
         --radius: 16px;
-        --shadow: 0 4px 16px rgba(31, 41, 55, 0.08);
-        --shadow-hover: 0 8px 24px rgba(31, 41, 55, 0.12);
+        --shadow: 0 4px 20px rgba(45, 80, 22, 0.1);
+        --shadow-hover: 0 8px 24px rgba(45, 80, 22, 0.15);
         color-scheme: light;
       }
 
       html.night-mode {
-        --blue: #60a5fa;
-        --blue-dark: #3b82f6;
-        --blue-light: #93c5fd;
-        --green: #34d399;
-        --green-dark: #10b981;
-        --green-light: #6ee7b7;
-        --white: #ffffff;
-        --bg: #0f172a;
-        --surface: #1e293b;
+        --bg: #121a14;
+        --bg-accent: #1a241c;
+        --surface: #1e2a22;
         --forest: #8fbf6a;
         --forest-light: #a8d484;
         --ocean: #5eb3d4;
         --ocean-light: #7ec8e0;
         --earth: #d4b45a;
         --earth-light: #e6c97a;
-        --text: #e5e7eb;
-        --text-muted: #94a3b8;
-        --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+        --sand: #1a221c;
+        --text: #e8efe3;
+        --text-muted: #a8b5a0;
+        --blue: #8fbf6a;
+        --blue-dark: #6fa04a;
+        --blue-light: #a8d484;
+        --green: #a8d484;
+        --green-dark: #8fbf6a;
+        --green-light: #c5e6a8;
+        --white: #ffffff;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
         --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
         color-scheme: dark;
       }
@@ -103,7 +107,10 @@
 
       .app {
         min-height: 100vh;
-        background: var(--bg);
+        background:
+          radial-gradient(ellipse at 10% 0%, rgba(74, 124, 46, 0.15) 0%, transparent 50%),
+          radial-gradient(ellipse at 90% 100%, rgba(26, 107, 138, 0.12) 0%, transparent 50%),
+          linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 40%, var(--sand) 100%);
       }
 
       .container {
@@ -120,7 +127,7 @@
         padding: 0.6rem 1rem 0.55rem;
         margin-bottom: 0.55rem;
         border-radius: 0 0 var(--radius) var(--radius);
-        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.2);
+        box-shadow: 0 4px 16px rgba(45, 80, 22, 0.25);
       }
 
       .header-top {
@@ -300,7 +307,7 @@
 
       .search-wrap:focus-within {
         border-color: var(--green);
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        box-shadow: 0 0 0 3px rgba(74, 124, 46, 0.15);
       }
 
       .search-icon {
@@ -383,6 +390,13 @@
         background: rgba(255, 255, 255, 0.28);
       }
 
+      html.night-mode .app {
+        background:
+          radial-gradient(ellipse at 10% 0%, rgba(143, 191, 106, 0.12) 0%, transparent 50%),
+          radial-gradient(ellipse at 90% 100%, rgba(94, 179, 212, 0.1) 0%, transparent 50%),
+          linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 40%, var(--sand) 100%);
+      }
+
       html.night-mode .animal-card,
       html.night-mode .detail-card,
       html.night-mode .modal,
@@ -405,12 +419,12 @@
       html.night-mode .filter-pill {
         background: var(--surface);
         color: var(--blue-light);
-        border-color: rgba(96, 165, 250, 0.35);
+        border-color: rgba(143, 191, 106, 0.35);
       }
 
       html.night-mode .brand-logo {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        background: #1e293b;
+        background: #1a241c;
       }
 
       html.night-mode .search-input,
@@ -418,7 +432,7 @@
       html.night-mode .detail-panel,
       html.night-mode .review-item,
       html.night-mode .animal-card {
-        border-color: rgba(96, 165, 250, 0.22);
+        border-color: rgba(143, 191, 106, 0.22);
       }
 
       html.night-mode .fact-label {
@@ -437,7 +451,7 @@
         padding: 0.4rem 0.6rem;
         background: var(--white);
         color: var(--blue);
-        border: 1px solid rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(45, 80, 22, 0.2);
         border-radius: calc(var(--radius) - 4px);
         font-family: inherit;
         font-size: 0.75rem;
@@ -452,7 +466,7 @@
       .feedback-btn:hover,
       .bug-report-btn:hover,
       .habitat-map-btn:hover {
-        background: rgba(30, 58, 138, 0.06);
+        background: rgba(74, 124, 46, 0.08);
         transform: translateY(-1px);
       }
 
@@ -473,7 +487,7 @@
         gap: 0.25rem;
         padding: 0.4rem 0.6rem;
         border-radius: calc(var(--radius) - 4px);
-        border: 1px solid rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(45, 80, 22, 0.2);
         background: var(--white);
         color: var(--blue);
         font-family: inherit;
@@ -491,7 +505,7 @@
       }
 
       .translate-btn:hover {
-        background: rgba(30, 58, 138, 0.06);
+        background: rgba(74, 124, 46, 0.08);
         transform: translateY(-1px);
       }
 
@@ -534,7 +548,7 @@
 
       .translate-option:hover,
       .translate-option.active {
-        background: rgba(30, 58, 138, 0.08);
+        background: rgba(74, 124, 46, 0.1);
         color: var(--blue);
       }
 
@@ -621,7 +635,7 @@
       .form-field textarea:focus {
         outline: none;
         border-color: var(--blue);
-        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12);
+        box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.12);
       }
 
       .form-row {
@@ -954,7 +968,7 @@
 
       .filter-pill:hover {
         border-color: var(--blue);
-        background: rgba(30, 58, 138, 0.05);
+        background: rgba(74, 124, 46, 0.06);
       }
 
       .filter-pill.active {
@@ -1039,7 +1053,7 @@
 
       .animal-card:hover {
         transform: translateY(-3px);
-        border-color: rgba(30, 58, 138, 0.25);
+        border-color: rgba(45, 80, 22, 0.25);
         box-shadow: var(--shadow-hover);
       }
 
@@ -1169,7 +1183,7 @@
         align-items: center;
         gap: 0.35rem;
         background: var(--white);
-        border: 1px solid rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(45, 80, 22, 0.2);
         color: var(--blue);
         padding: 0.5rem 1rem;
         border-radius: 999px;
@@ -1182,7 +1196,7 @@
       }
 
       .back-btn:hover {
-        background: rgba(30, 58, 138, 0.06);
+        background: rgba(74, 124, 46, 0.08);
       }
 
       .detail-emoji {
@@ -34946,7 +34960,7 @@
         document.documentElement.classList.toggle("day-mode", !enabled);
         document.documentElement.style.colorScheme = enabled ? "dark" : "light";
         const themeMeta = document.querySelector('meta[name="theme-color"]');
-        if (themeMeta) themeMeta.setAttribute("content", enabled ? "#0f172a" : "#1e3a8a");
+        if (themeMeta) themeMeta.setAttribute("content", enabled ? "#121a14" : "#2d5016");
         if (nightModeBtn) {
           nightModeBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
           nightModeBtn.title = enabled ? "Day mode" : "Night mode";
