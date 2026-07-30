@@ -7,7 +7,7 @@
       name="description"
       content="Wild Wonders — a fun animal encyclopedia for kids with facts, habitats, and diets!"
     />
-    <meta name="theme-color" content="#2d5016" />
+    <meta name="theme-color" content="#1e3a8a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Wild Wonders" />
@@ -44,37 +44,50 @@
       }
 
       :root {
-        --bg: #f4f7ef;
-        --bg-accent: #e8f0e0;
+        --blue: #1e3a8a;
+        --blue-dark: #152e6e;
+        --blue-light: #2a4ba8;
+        --green: #10b981;
+        --green-dark: #059669;
+        --green-light: #34d399;
+        --white: #ffffff;
+        --bg: #f8fafc;
         --surface: #ffffff;
+        /* Habitat accent colors (kept for pills/badges) */
         --forest: #2d5016;
         --forest-light: #4a7c2e;
         --ocean: #1a6b8a;
         --ocean-light: #3a9ec4;
         --earth: #8b6914;
         --earth-light: #c4a035;
-        --sand: #f5ead6;
-        --text: #3d2c1e;
-        --text-muted: #6b5b4f;
+        --text: #1f2937;
+        --text-muted: #6b7280;
         --radius: 16px;
-        --shadow: 0 4px 20px rgba(45, 80, 22, 0.1);
+        --shadow: 0 4px 16px rgba(31, 41, 55, 0.08);
+        --shadow-hover: 0 8px 24px rgba(31, 41, 55, 0.12);
         color-scheme: light;
       }
 
       html.night-mode {
-        --bg: #121a14;
-        --bg-accent: #1a241c;
-        --surface: #1e2a22;
+        --blue: #60a5fa;
+        --blue-dark: #3b82f6;
+        --blue-light: #93c5fd;
+        --green: #34d399;
+        --green-dark: #10b981;
+        --green-light: #6ee7b7;
+        --white: #ffffff;
+        --bg: #0f172a;
+        --surface: #1e293b;
         --forest: #8fbf6a;
         --forest-light: #a8d484;
         --ocean: #5eb3d4;
         --ocean-light: #7ec8e0;
         --earth: #d4b45a;
         --earth-light: #e6c97a;
-        --sand: #1a221c;
-        --text: #e8efe3;
-        --text-muted: #a8b5a0;
-        --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        --text: #e5e7eb;
+        --text-muted: #94a3b8;
+        --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+        --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
         color-scheme: dark;
       }
 
@@ -90,97 +103,162 @@
 
       .app {
         min-height: 100vh;
-        background:
-          radial-gradient(ellipse at 10% 0%, rgba(74, 124, 46, 0.15) 0%, transparent 50%),
-          radial-gradient(ellipse at 90% 100%, rgba(26, 107, 138, 0.12) 0%, transparent 50%),
-          linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 40%, var(--sand) 100%);
+        background: var(--bg);
       }
 
       .container {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0.85rem 1.25rem 2rem;
+        padding: 0.6rem 1rem 1.5rem;
       }
 
       .header {
-        margin-bottom: 0.25rem;
+        background: var(--blue);
+        color: var(--white);
+        margin-left: calc(-1 * 1rem);
+        margin-right: calc(-1 * 1rem);
+        padding: 0.6rem 1rem 0.55rem;
+        margin-bottom: 0.55rem;
+        border-radius: 0 0 var(--radius) var(--radius);
+        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.2);
       }
 
       .header-top {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
-        gap: 0.75rem;
+        gap: 1rem;
+        flex-wrap: wrap;
       }
 
       .header-actions {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.35rem;
-        margin-left: auto;
+        align-items: center;
+        gap: 0.5rem;
         flex-shrink: 0;
-      }
-
-      .header-actions-grid {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        gap: 0.28rem;
-        justify-content: end;
       }
 
       .header-brand {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.5rem;
         text-align: left;
+        min-width: 0;
       }
 
       .brand-logo {
-        width: 56px;
-        height: 56px;
-        border-radius: 14px;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
         object-fit: cover;
         flex-shrink: 0;
-        box-shadow: 0 4px 12px rgba(11, 49, 56, 0.18);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         background: #fff;
       }
 
       .header h1 {
-        font-size: clamp(1.5rem, 4vw, 2.1rem);
+        font-size: clamp(1.15rem, 3.5vw, 1.55rem);
         font-weight: 800;
-        color: var(--forest);
+        color: var(--white);
         margin-top: 0;
+        line-height: 1.1;
       }
 
       .tagline {
-        color: var(--text-muted);
-        margin-top: 0.15rem;
-        font-size: 0.95rem;
+        display: none;
       }
 
       .animal-count {
         display: inline-block;
         margin-top: 0;
-        padding: 0.22rem 0.6rem;
-        background: rgba(74, 124, 46, 0.12);
-        border: 1px solid rgba(74, 124, 46, 0.25);
+        padding: 0.2rem 0.55rem;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.28);
         border-radius: 999px;
         font-size: 0.72rem;
         font-weight: 600;
-        color: var(--forest-light);
+        color: var(--white);
         white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .top-quick-bar {
+        margin-bottom: 0.55rem;
+      }
+
+      .animal-of-day {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        width: 100%;
+        min-width: 0;
+        background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+        color: var(--white);
+        border-radius: calc(var(--radius) - 4px);
+        padding: 0.45rem 0.65rem;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        border: none;
+        text-align: left;
+        font-family: inherit;
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+
+      .animal-of-day:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .animal-of-day-emoji {
+        font-size: 1.45rem;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      .animal-of-day-text {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .animal-of-day-label {
+        display: block;
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.85;
+        line-height: 1.1;
+      }
+
+      .animal-of-day-name {
+        font-size: 0.88rem;
+        font-weight: 800;
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .animal-of-day-teaser {
+        display: none;
+      }
+
+      .animal-of-day-cta {
+        font-size: 0.72rem;
+        font-weight: 700;
+        opacity: 0.9;
+        flex-shrink: 0;
       }
 
       .toolbar {
         display: flex;
         flex-direction: column;
-        gap: 0.4rem;
-        margin-bottom: 0.5rem;
-        background: rgba(255, 255, 255, 0.72);
-        border: 2px solid rgba(45, 80, 22, 0.1);
-        border-radius: var(--radius);
-        padding: 0.45rem 0.65rem;
+        gap: 0.35rem;
+        margin-bottom: 0.4rem;
+        background: var(--white);
+        border: 1px solid rgba(31, 41, 55, 0.08);
+        border-radius: calc(var(--radius) - 4px);
+        padding: 0.45rem 0.55rem;
         box-shadow: var(--shadow);
       }
 
@@ -193,37 +271,36 @@
 
       .animals-area {
         margin-top: 0;
-        margin-left: calc(-1 * 1.25rem);
-        margin-right: calc(-1 * 1.25rem);
-        padding: 0.35rem 1.25rem 0;
+        margin-left: calc(-1 * 1rem);
+        margin-right: calc(-1 * 1rem);
+        padding: 0.2rem 1rem 0;
       }
 
       .search-row {
         display: flex;
-        gap: 0.45rem;
-        align-items: center;
-      }
-
-      .search-row .search-wrap {
-        flex: 1;
-        min-width: 0;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+        align-items: flex-start;
       }
 
       .search-wrap {
         display: flex;
         align-items: center;
-        gap: 0.45rem;
-        flex: 1 1 200px;
-        min-width: 160px;
-        padding: 0 0.75rem;
-        background: var(--surface);
-        border: 2px solid rgba(45, 80, 22, 0.2);
-        border-radius: var(--radius);
-        transition: border-color 0.2s;
+        gap: 0.35rem;
+        flex: 1 1 160px;
+        min-width: 140px;
+        min-height: 2.05rem;
+        box-sizing: border-box;
+        padding: 0 0.6rem;
+        background: var(--white);
+        border: 1px solid rgba(31, 41, 55, 0.12);
+        border-radius: calc(var(--radius) - 4px);
+        transition: border-color 0.2s, box-shadow 0.2s;
       }
 
       .search-wrap:focus-within {
-        border-color: var(--forest-light);
+        border-color: var(--green);
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
       }
 
       .search-icon {
@@ -240,11 +317,11 @@
         width: 100%;
         flex: 1;
         min-width: 0;
-        padding: 0.6rem 0;
+        padding: 0.45rem 0;
         border: none;
         border-radius: 0;
         font-family: inherit;
-        font-size: 0.95rem;
+        font-size: 0.88rem;
         background: transparent;
         color: var(--text);
       }
@@ -254,61 +331,56 @@
       }
 
       .random-btn {
-        background: linear-gradient(135deg, var(--forest-light), var(--forest));
-        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-height: 2.05rem;
+        padding: 0.4rem 0.6rem;
+        background: var(--green);
+        color: var(--white);
         border: 1px solid transparent;
-        border-radius: 999px;
+        border-radius: calc(var(--radius) - 4px);
         font-family: inherit;
+        font-size: 0.75rem;
         font-weight: 600;
         line-height: 1.2;
         cursor: pointer;
         white-space: nowrap;
-        transition: transform 0.15s, box-shadow 0.15s;
-        box-shadow: 0 2px 8px rgba(45, 80, 22, 0.15);
+        transition: transform 0.15s, background 0.15s;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
       }
 
       .random-btn:hover {
         transform: translateY(-1px);
+        background: var(--green-dark);
       }
 
       .random-btn:active {
         transform: scale(0.98);
       }
 
-      .header-actions-grid .add-animal-btn,
-      .header-actions-grid .feedback-btn,
-      .header-actions-grid .bug-report-btn,
-      .header-actions-grid .habitat-map-btn,
-      .header-actions-grid .random-btn,
-      .header-actions-grid .translate-btn,
-      .header-actions-grid .night-mode-btn {
-        padding: 0.28rem 0.55rem;
-        font-size: 0.72rem;
-        border-radius: 999px;
-        line-height: 1.2;
+      .action-btn-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
       }
 
       .night-mode-btn {
-        background: var(--surface);
-        color: var(--forest);
-        border: 1px solid rgba(45, 80, 22, 0.22);
+        padding: 0.2rem 0.55rem;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 999px;
+        color: var(--white);
         font-family: inherit;
+        font-size: 0.72rem;
         font-weight: 600;
         cursor: pointer;
-        transition: transform 0.15s, background 0.15s;
-        box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
+        white-space: nowrap;
       }
 
       .night-mode-btn:hover {
-        transform: translateY(-1px);
-        background: var(--bg-accent);
-      }
-
-      html.night-mode .app {
-        background:
-          radial-gradient(ellipse at 10% 0%, rgba(143, 191, 106, 0.12) 0%, transparent 50%),
-          radial-gradient(ellipse at 90% 100%, rgba(94, 179, 212, 0.1) 0%, transparent 50%),
-          linear-gradient(180deg, var(--bg-accent) 0%, var(--bg) 40%, var(--sand) 100%);
+        background: rgba(255, 255, 255, 0.28);
       }
 
       html.night-mode .animal-card,
@@ -316,6 +388,8 @@
       html.night-mode .modal,
       html.night-mode .panel,
       html.night-mode .toolbar,
+      html.night-mode .form-card,
+      html.night-mode .search-wrap,
       html.night-mode input,
       html.night-mode textarea,
       html.night-mode select {
@@ -328,17 +402,15 @@
       html.night-mode .bug-report-btn,
       html.night-mode .habitat-map-btn,
       html.night-mode .translate-btn,
-      html.night-mode .night-mode-btn,
       html.night-mode .filter-pill {
         background: var(--surface);
-        color: var(--forest-light);
-        border-color: rgba(143, 191, 106, 0.35);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        color: var(--blue-light);
+        border-color: rgba(96, 165, 250, 0.35);
       }
 
       html.night-mode .brand-logo {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        background: #1a241c;
+        background: #1e293b;
       }
 
       html.night-mode .search-input,
@@ -346,62 +418,80 @@
       html.night-mode .detail-panel,
       html.night-mode .review-item,
       html.night-mode .animal-card {
-        border-color: rgba(143, 191, 106, 0.22);
+        border-color: rgba(96, 165, 250, 0.22);
       }
 
       html.night-mode .fact-label {
-        color: var(--forest-light);
+        color: var(--blue-light);
       }
 
       .add-animal-btn,
       .feedback-btn,
       .bug-report-btn,
       .habitat-map-btn {
-        background: var(--surface);
-        color: var(--forest);
-        border: 1px solid rgba(45, 80, 22, 0.22);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        min-height: 2.05rem;
+        padding: 0.4rem 0.6rem;
+        background: var(--white);
+        color: var(--blue);
+        border: 1px solid rgba(30, 58, 138, 0.2);
+        border-radius: calc(var(--radius) - 4px);
         font-family: inherit;
+        font-size: 0.75rem;
         font-weight: 600;
+        line-height: 1.2;
         cursor: pointer;
+        white-space: nowrap;
         transition: transform 0.15s, background 0.15s;
-        box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
       }
 
       .add-animal-btn:hover,
       .feedback-btn:hover,
       .bug-report-btn:hover,
       .habitat-map-btn:hover {
-        background: rgba(74, 124, 46, 0.08);
+        background: rgba(30, 58, 138, 0.06);
         transform: translateY(-1px);
       }
 
       .translate-wrap {
         position: relative;
-        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        flex: 0 0 auto;
       }
 
       .translate-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.2rem;
-        border: 1px solid rgba(45, 80, 22, 0.2);
-        background: var(--surface);
-        color: var(--forest);
+        box-sizing: border-box;
+        min-height: 2.05rem;
+        gap: 0.25rem;
+        padding: 0.4rem 0.6rem;
+        border-radius: calc(var(--radius) - 4px);
+        border: 1px solid rgba(30, 58, 138, 0.2);
+        background: var(--white);
+        color: var(--blue);
         font-family: inherit;
+        font-size: 0.75rem;
         font-weight: 600;
+        line-height: 1.2;
         cursor: pointer;
-        box-shadow: 0 2px 8px rgba(45, 80, 22, 0.08);
         transition: transform 0.15s, background 0.15s;
+        white-space: nowrap;
       }
 
       .translate-btn-emoji {
-        font-size: 0.85rem;
+        font-size: 1.15rem;
         line-height: 1;
       }
 
       .translate-btn:hover {
-        background: rgba(74, 124, 46, 0.08);
+        background: rgba(30, 58, 138, 0.06);
         transform: translateY(-1px);
       }
 
@@ -410,11 +500,11 @@
         right: 0;
         top: calc(100% + 0.5rem);
         min-width: 180px;
-        background: var(--surface);
-        border: 2px solid rgba(45, 80, 22, 0.12);
+        background: var(--white);
+        border: 1px solid rgba(31, 41, 55, 0.1);
         border-radius: var(--radius);
         padding: 0.65rem;
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-hover);
         z-index: 20;
       }
 
@@ -444,8 +534,8 @@
 
       .translate-option:hover,
       .translate-option.active {
-        background: rgba(74, 124, 46, 0.1);
-        color: var(--forest);
+        background: rgba(30, 58, 138, 0.08);
+        color: var(--blue);
       }
 
       .google-translate-host {
@@ -469,10 +559,10 @@
       }
 
       .form-card {
-        background: var(--surface);
+        background: var(--white);
         border-radius: var(--radius);
         padding: 1.5rem;
-        border: 2px solid rgba(45, 80, 22, 0.12);
+        border: 1px solid rgba(31, 41, 55, 0.08);
         box-shadow: var(--shadow);
         max-width: 640px;
         margin: 0 auto;
@@ -481,7 +571,7 @@
       .form-title {
         font-size: 1.5rem;
         font-weight: 800;
-        color: var(--forest);
+        color: var(--blue);
         margin-bottom: 0.35rem;
         text-align: center;
       }
@@ -504,7 +594,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: var(--forest-light);
+        color: var(--blue);
         margin-bottom: 0.35rem;
       }
 
@@ -513,7 +603,7 @@
       .form-field textarea {
         width: 100%;
         padding: 0.7rem 0.85rem;
-        border: 2px solid rgba(45, 80, 22, 0.15);
+        border: 2px solid rgba(31, 41, 55, 0.12);
         border-radius: calc(var(--radius) - 4px);
         font-family: inherit;
         font-size: 1rem;
@@ -530,7 +620,8 @@
       .form-field select:focus,
       .form-field textarea:focus {
         outline: none;
-        border-color: var(--forest-light);
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12);
       }
 
       .form-row {
@@ -550,21 +641,27 @@
         flex: 1;
         min-width: 160px;
         padding: 0.85rem 1.25rem;
-        background: linear-gradient(135deg, var(--forest-light), var(--forest));
-        color: white;
+        background: var(--green);
+        color: var(--white);
         border: none;
         border-radius: var(--radius);
         font-family: inherit;
         font-size: 1rem;
         font-weight: 700;
         cursor: pointer;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+        transition: background 0.15s;
+      }
+
+      .submit-btn:hover {
+        background: var(--green-dark);
       }
 
       .cancel-btn {
         padding: 0.85rem 1.25rem;
-        background: var(--surface);
+        background: var(--white);
         color: var(--text-muted);
-        border: 2px solid rgba(45, 80, 22, 0.15);
+        border: 2px solid rgba(31, 41, 55, 0.12);
         border-radius: var(--radius);
         font-family: inherit;
         font-size: 1rem;
@@ -597,7 +694,7 @@
       }
 
       .success-card h2 {
-        color: var(--forest);
+        color: var(--blue);
         margin-bottom: 0.75rem;
       }
 
@@ -614,7 +711,7 @@
 
       .review-item {
         background: var(--surface);
-        border: 2px solid rgba(45, 80, 22, 0.12);
+        border: 1px solid rgba(31, 41, 55, 0.08);
         border-radius: var(--radius);
         padding: 1.25rem;
         box-shadow: var(--shadow);
@@ -634,7 +731,7 @@
       .review-item-name {
         font-size: 1.25rem;
         font-weight: 800;
-        color: var(--forest);
+        color: var(--blue);
       }
 
       .review-meta {
@@ -669,7 +766,7 @@
       }
 
       .approve-btn {
-        background: var(--forest);
+        background: var(--green);
         color: white;
       }
 
@@ -702,7 +799,7 @@
       .footer-link {
         background: none;
         border: none;
-        color: var(--forest-light);
+        color: var(--blue);
         font-family: inherit;
         font-size: 0.85rem;
         cursor: pointer;
@@ -728,7 +825,7 @@
       .habitat-map-title {
         font-size: 1.35rem;
         font-weight: 800;
-        color: var(--forest);
+        color: var(--blue);
         margin: 0 0 0.75rem;
         text-align: center;
       }
@@ -776,7 +873,7 @@
       .admin-section-title {
         font-size: 1.05rem;
         font-weight: 800;
-        color: var(--forest);
+        color: var(--blue);
         margin: 1.5rem 0 0.75rem;
       }
 
@@ -843,21 +940,21 @@
       }
 
       .filter-pill {
-        background: var(--surface);
-        border: 2px solid rgba(45, 80, 22, 0.15);
+        background: var(--white);
+        border: 1px solid rgba(31, 41, 55, 0.12);
         color: var(--text);
-        padding: 0.3rem 0.7rem;
+        padding: 0.22rem 0.55rem;
         border-radius: 999px;
         font-family: inherit;
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.15s;
       }
 
       .filter-pill:hover {
-        border-color: var(--forest-light);
-        background: rgba(74, 124, 46, 0.06);
+        border-color: var(--blue);
+        background: rgba(30, 58, 138, 0.05);
       }
 
       .filter-pill.active {
@@ -866,8 +963,9 @@
       }
 
       .filter-pill.active.all {
-        background: var(--forest);
-        border-color: var(--forest);
+        background: var(--blue);
+        border-color: var(--blue);
+        color: var(--white);
       }
 
       .filter-pill.active.grassland {
@@ -922,25 +1020,27 @@
       }
 
       .animal-card {
-        background: var(--surface);
-        border: 2px solid rgba(45, 80, 22, 0.12);
+        background: var(--white);
+        border: 1px solid rgba(31, 41, 55, 0.08);
         border-radius: var(--radius);
-        padding: 1rem 0.5rem 0.9rem;
+        padding: 0.9rem 0.45rem 0.8rem;
         text-align: center;
         cursor: pointer;
         transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
         box-shadow: var(--shadow);
-        min-height: 152px;
+        min-height: 132px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        font-family: inherit;
+        color: inherit;
       }
 
       .animal-card:hover {
         transform: translateY(-3px);
-        border-color: var(--forest-light);
-        box-shadow: 0 8px 28px rgba(45, 80, 22, 0.15);
+        border-color: rgba(30, 58, 138, 0.25);
+        box-shadow: var(--shadow-hover);
       }
 
       .animal-card:active {
@@ -963,8 +1063,8 @@
 
       .card-name {
         font-weight: 700;
-        font-size: 0.98rem;
-        color: var(--forest);
+        font-size: 0.92rem;
+        color: var(--text);
         margin: 0;
         line-height: 1.2;
       }
@@ -972,7 +1072,7 @@
       .animal-title-block .habitat-map-label {
         font-size: 0.62rem;
         font-weight: 700;
-        color: var(--forest-light);
+        color: var(--blue);
         line-height: 1.25;
         margin: 0;
       }
@@ -1027,9 +1127,9 @@
       .empty-state {
         text-align: center;
         padding: 3rem 1.5rem;
-        background: var(--surface);
+        background: var(--white);
         border-radius: var(--radius);
-        border: 2px dashed rgba(45, 80, 22, 0.2);
+        border: 2px dashed rgba(31, 41, 55, 0.12);
       }
 
       .empty-state .empty-icon {
@@ -1068,9 +1168,9 @@
         display: inline-flex;
         align-items: center;
         gap: 0.35rem;
-        background: var(--surface);
-        border: 2px solid rgba(45, 80, 22, 0.2);
-        color: var(--forest);
+        background: var(--white);
+        border: 1px solid rgba(30, 58, 138, 0.2);
+        color: var(--blue);
         padding: 0.5rem 1rem;
         border-radius: 999px;
         font-family: inherit;
@@ -1082,7 +1182,7 @@
       }
 
       .back-btn:hover {
-        background: rgba(74, 124, 46, 0.08);
+        background: rgba(30, 58, 138, 0.06);
       }
 
       .detail-emoji {
@@ -1102,7 +1202,7 @@
       .detail-name {
         font-size: clamp(2rem, 6vw, 2.75rem);
         font-weight: 800;
-        color: var(--forest);
+        color: var(--blue);
         margin: 0;
       }
 
@@ -1111,7 +1211,7 @@
         margin: 0;
         max-width: 22rem;
         line-height: 1.4;
-        color: var(--forest-light);
+        color: var(--blue-light);
       }
 
       .detail-type {
@@ -1127,16 +1227,16 @@
       }
 
       .fact-card {
-        background: var(--surface);
+        background: var(--white);
         border-radius: var(--radius);
         padding: 1.25rem 1.35rem;
-        border-left: 4px solid var(--forest-light);
+        border-left: 4px solid var(--blue);
         box-shadow: var(--shadow);
       }
 
       .fact-card.highlight {
-        border-left-color: var(--earth-light);
-        background: linear-gradient(135deg, #fffef8, var(--surface));
+        border-left-color: var(--green);
+        background: linear-gradient(135deg, #f0fdf4, var(--white));
       }
 
       .fact-card.ocean-fact {
@@ -1171,7 +1271,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: var(--forest-light);
+        color: var(--blue);
         margin-bottom: 0.4rem;
       }
 
@@ -1198,7 +1298,7 @@
         content: "•";
         position: absolute;
         left: 0;
-        color: var(--forest-light);
+        color: var(--blue);
         font-weight: 700;
       }
 
@@ -1222,6 +1322,13 @@
           padding-right: 1.5rem;
         }
 
+        .header {
+          margin-left: calc(-1 * 1.5rem);
+          margin-right: calc(-1 * 1.5rem);
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+
         .animals-area {
           margin-left: calc(-1 * 1.5rem);
           margin-right: calc(-1 * 1.5rem);
@@ -1232,10 +1339,6 @@
         .animal-grid {
           grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
           gap: 1.05rem;
-        }
-
-        .tagline {
-          display: none;
         }
       }
 
@@ -1252,6 +1355,13 @@
           padding-right: 0.85rem;
         }
 
+        .header {
+          margin-left: calc(-1 * 0.85rem);
+          margin-right: calc(-1 * 0.85rem);
+          padding-left: 0.85rem;
+          padding-right: 0.85rem;
+        }
+
         .animals-area {
           margin-left: calc(-1 * 0.85rem);
           margin-right: calc(-1 * 0.85rem);
@@ -1259,18 +1369,10 @@
           padding-right: 0.85rem;
         }
 
-        .header-actions-grid {
-          grid-template-columns: repeat(2, auto);
-        }
-
         .brand-logo {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-        }
-
-        .tagline {
-          font-size: 0.85rem;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
         }
 
         .filter-row {
@@ -1318,8 +1420,8 @@
                   class="brand-logo"
                   src="logo.png"
                   alt="Wild Wonders logo"
-                  width="56"
-                  height="56"
+                  width="44"
+                  height="44"
                   decoding="async"
                   fetchpriority="high"
                 />
@@ -1329,67 +1431,32 @@
                 </div>
               </div>
               <div class="header-actions">
+                <button
+                  type="button"
+                  class="night-mode-btn"
+                  id="night-mode-btn"
+                  title="Night mode"
+                  aria-label="Toggle night mode"
+                  aria-pressed="false"
+                >
+                  🌙 Night
+                </button>
                 <p class="animal-count" id="animal-count"></p>
-                <div class="header-actions-grid">
-                  <button
-                    type="button"
-                    class="night-mode-btn"
-                    id="night-mode-btn"
-                    title="Night mode"
-                    aria-label="Toggle night mode"
-                    aria-pressed="false"
-                  >
-                    🌙 Night
-                  </button>
-                  <button type="button" class="add-animal-btn" id="add-animal-btn">
-                    ➕ Add Animal
-                  </button>
-                  <button type="button" class="feedback-btn" id="feedback-toolbar-btn">
-                    💬 Feedback
-                  </button>
-                  <button type="button" class="bug-report-btn" id="bug-report-toolbar-btn">
-                    🐛 Report a bug
-                  </button>
-                  <button
-                    type="button"
-                    class="habitat-map-btn"
-                    id="habitat-map-toolbar-btn"
-                    title="Explore where they live!"
-                  >
-                    🌍 Map
-                  </button>
-                  <button type="button" class="random-btn" id="random-btn" title="Surprise Me!">
-                    🎲 Surprise
-                  </button>
-                  <div class="translate-wrap" id="translate-wrap">
-                    <button
-                      type="button"
-                      class="translate-btn"
-                      id="translate-btn"
-                      aria-label="Translate website"
-                      title="Translate website"
-                    >
-                      <span class="translate-btn-emoji" aria-hidden="true">🌐</span>
-                      Translate
-                    </button>
-                    <div class="translate-menu" id="translate-menu" hidden>
-                      <p class="translate-menu-title">Translate site</p>
-                      <button type="button" class="translate-option active" data-lang="">English</button>
-                      <button type="button" class="translate-option" data-lang="es">Español</button>
-                      <button type="button" class="translate-option" data-lang="fr">Français</button>
-                      <button type="button" class="translate-option" data-lang="de">Deutsch</button>
-                      <button type="button" class="translate-option" data-lang="pt">Português</button>
-                      <button type="button" class="translate-option" data-lang="zh-CN">中文</button>
-                      <button type="button" class="translate-option" data-lang="ja">日本語</button>
-                      <button type="button" class="translate-option" data-lang="ko">한국어</button>
-                      <button type="button" class="translate-option" data-lang="ar">العربية</button>
-                      <button type="button" class="translate-option" data-lang="hi">हिन्दी</button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </header>
+
+          <div class="top-quick-bar">
+            <button type="button" class="animal-of-day" id="animal-of-day-card" hidden>
+              <span class="animal-of-day-emoji" id="animal-of-day-emoji"></span>
+              <span class="animal-of-day-text">
+                <span class="animal-of-day-label">Animal of the Day</span>
+                <span class="animal-of-day-name" id="animal-of-day-name"></span>
+                <span class="animal-of-day-teaser" id="animal-of-day-teaser"></span>
+              </span>
+              <span class="animal-of-day-cta">→</span>
+            </button>
+          </div>
 
           <div class="toolbar">
             <div class="search-row">
@@ -1402,6 +1469,50 @@
                   placeholder="Search for an animal..."
                   autocomplete="off"
                 />
+              </div>
+              <div class="action-btn-stack">
+                <button type="button" class="add-animal-btn" id="add-animal-btn">
+                  ➕ Add Animal
+                </button>
+                <button type="button" class="habitat-map-btn" id="habitat-map-toolbar-btn" title="Explore where they live!">
+                  🌍 Map
+                </button>
+              </div>
+              <div class="action-btn-stack">
+                <button type="button" class="feedback-btn" id="feedback-toolbar-btn">
+                  💬 Feedback
+                </button>
+                <button type="button" class="bug-report-btn" id="bug-report-toolbar-btn">
+                  🐛 Report a bug
+                </button>
+              </div>
+              <div class="translate-wrap" id="translate-wrap">
+                <button type="button" class="random-btn" id="random-btn" title="Surprise Me!">
+                  🎲 Random
+                </button>
+                <button
+                  type="button"
+                  class="translate-btn"
+                  id="translate-btn"
+                  aria-label="Translate website"
+                  title="Translate website"
+                >
+                  <span class="translate-btn-emoji" aria-hidden="true">🌐</span>
+                  Translate
+                </button>
+                <div class="translate-menu" id="translate-menu" hidden>
+                  <p class="translate-menu-title">Translate site</p>
+                  <button type="button" class="translate-option active" data-lang="">English</button>
+                  <button type="button" class="translate-option" data-lang="es">Español</button>
+                  <button type="button" class="translate-option" data-lang="fr">Français</button>
+                  <button type="button" class="translate-option" data-lang="de">Deutsch</button>
+                  <button type="button" class="translate-option" data-lang="pt">Português</button>
+                  <button type="button" class="translate-option" data-lang="zh-CN">中文</button>
+                  <button type="button" class="translate-option" data-lang="ja">日本語</button>
+                  <button type="button" class="translate-option" data-lang="ko">한국어</button>
+                  <button type="button" class="translate-option" data-lang="ar">العربية</button>
+                  <button type="button" class="translate-option" data-lang="hi">हिन्दी</button>
+                </div>
               </div>
             </div>
 
@@ -34835,7 +34946,7 @@
         document.documentElement.classList.toggle("day-mode", !enabled);
         document.documentElement.style.colorScheme = enabled ? "dark" : "light";
         const themeMeta = document.querySelector('meta[name="theme-color"]');
-        if (themeMeta) themeMeta.setAttribute("content", enabled ? "#121a14" : "#2d5016");
+        if (themeMeta) themeMeta.setAttribute("content", enabled ? "#0f172a" : "#1e3a8a");
         if (nightModeBtn) {
           nightModeBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
           nightModeBtn.title = enabled ? "Day mode" : "Night mode";
@@ -34968,6 +35079,7 @@
           memoryApproved = [...list];
         }
         updateAnimalCount();
+        renderAnimalOfTheDay();
         renderGrid();
       }
 
@@ -35023,6 +35135,7 @@
           memoryEdits = { ...edits };
         }
         updateAnimalCount();
+        renderAnimalOfTheDay();
         renderGrid();
       }
 
@@ -36053,8 +36166,48 @@
         alert("Wrong password. Please try again.");
       }
 
+      const animalOfDayCard = document.getElementById("animal-of-day-card");
+
+      function hashDateString(dateStr) {
+        let hash = 0;
+        for (let i = 0; i < dateStr.length; i++) {
+          hash = (hash * 31 + dateStr.charCodeAt(i)) >>> 0;
+        }
+        return hash;
+      }
+
+      function getAnimalOfTheDay() {
+        const animals = getAllAnimals();
+        if (!animals.length) return null;
+        const index = hashDateString(new Date().toDateString()) % animals.length;
+        return animals[index];
+      }
+
+      function renderAnimalOfTheDay() {
+        const animal = getAnimalOfTheDay();
+        if (!animal || !animalOfDayCard) return;
+
+        const emojiEl = document.getElementById("animal-of-day-emoji");
+        const nameEl = document.getElementById("animal-of-day-name");
+        const teaserEl = document.getElementById("animal-of-day-teaser");
+        if (!emojiEl || !nameEl || !teaserEl) return;
+
+        emojiEl.textContent = animal.emoji || "";
+        nameEl.textContent = animal.name;
+        const teaser =
+          (typeof getAnimalFacts === "function"
+            ? getAnimalFacts(animal, "funFacts", "funFact")[0]
+            : null) ||
+          animal.funFact ||
+          "";
+        teaserEl.textContent = teaser;
+        animalOfDayCard.hidden = false;
+        animalOfDayCard.onclick = () => showDetail(animal.id);
+      }
+
       updateAnimalCount();
       updateReviewLinkLabel();
+      renderAnimalOfTheDay();
 
       HABITATS.forEach((habitat) => {
         const btn = document.createElement("button");
