@@ -7,7 +7,7 @@
       name="description"
       content="Wild Wonders — a fun animal encyclopedia for kids with facts, habitats, and diets!"
     />
-    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="theme-color" content="#2d5016" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Wild Wonders" />
@@ -44,9 +44,9 @@
       }
 
       :root {
-        --blue: #1e3a8a;
-        --blue-dark: #152e6e;
-        --blue-light: #2a4ba8;
+        --blue: #2d5016;
+        --blue-dark: #1e360f;
+        --blue-light: #4a7c2e;
         --green: #10b981;
         --green-dark: #059669;
         --green-light: #34d399;
@@ -71,9 +71,9 @@
       }
 
       html.night-mode {
-        --blue: #60a5fa;
-        --blue-dark: #3b82f6;
-        --blue-light: #93c5fd;
+        --blue: #8fbf6a;
+        --blue-dark: #4a7c2e;
+        --blue-light: #a8d484;
         --green: #34d399;
         --green-dark: #10b981;
         --green-light: #6ee7b7;
@@ -125,7 +125,7 @@
         padding: 0.6rem 1rem 0.55rem;
         margin-bottom: 0.55rem;
         border-radius: 0 0 var(--radius) var(--radius);
-        box-shadow: 0 4px 16px rgba(30, 58, 138, 0.2);
+        box-shadow: 0 4px 16px rgba(45, 80, 22, 0.2);
       }
 
       .header-top {
@@ -442,7 +442,7 @@
         padding: 0.4rem 0.6rem;
         background: var(--white);
         color: var(--blue);
-        border: 1px solid rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(45, 80, 22, 0.2);
         border-radius: calc(var(--radius) - 4px);
         font-family: inherit;
         font-size: 0.75rem;
@@ -457,7 +457,7 @@
       .feedback-btn:hover,
       .bug-report-btn:hover,
       .habitat-map-btn:hover {
-        background: rgba(30, 58, 138, 0.06);
+        background: rgba(45, 80, 22, 0.06);
         transform: translateY(-1px);
       }
 
@@ -478,7 +478,7 @@
         gap: 0.25rem;
         padding: 0.4rem 0.6rem;
         border-radius: calc(var(--radius) - 4px);
-        border: 1px solid rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(45, 80, 22, 0.2);
         background: var(--white);
         color: var(--blue);
         font-family: inherit;
@@ -496,7 +496,7 @@
       }
 
       .translate-btn:hover {
-        background: rgba(30, 58, 138, 0.06);
+        background: rgba(45, 80, 22, 0.06);
         transform: translateY(-1px);
       }
 
@@ -539,7 +539,7 @@
 
       .translate-option:hover,
       .translate-option.active {
-        background: rgba(30, 58, 138, 0.08);
+        background: rgba(45, 80, 22, 0.08);
         color: var(--blue);
       }
 
@@ -626,7 +626,7 @@
       .form-field textarea:focus {
         outline: none;
         border-color: var(--blue);
-        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12);
+        box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.12);
       }
 
       .form-row {
@@ -959,7 +959,7 @@
 
       .filter-pill:hover {
         border-color: var(--blue);
-        background: rgba(30, 58, 138, 0.05);
+        background: rgba(45, 80, 22, 0.05);
       }
 
       .filter-pill.active {
@@ -1044,7 +1044,7 @@
 
       .animal-card:hover {
         transform: translateY(-3px);
-        border-color: rgba(30, 58, 138, 0.25);
+        border-color: rgba(45, 80, 22, 0.25);
         box-shadow: var(--shadow-hover);
       }
 
@@ -1174,7 +1174,7 @@
         align-items: center;
         gap: 0.35rem;
         background: var(--white);
-        border: 1px solid rgba(30, 58, 138, 0.2);
+        border: 1px solid rgba(45, 80, 22, 0.2);
         color: var(--blue);
         padding: 0.5rem 1rem;
         border-radius: 999px;
@@ -1187,7 +1187,7 @@
       }
 
       .back-btn:hover {
-        background: rgba(30, 58, 138, 0.06);
+        background: rgba(45, 80, 22, 0.06);
       }
 
       .detail-emoji {
@@ -34951,7 +34951,7 @@
         document.documentElement.classList.toggle("day-mode", !enabled);
         document.documentElement.style.colorScheme = enabled ? "dark" : "light";
         const themeMeta = document.querySelector('meta[name="theme-color"]');
-        if (themeMeta) themeMeta.setAttribute("content", enabled ? "#0f172a" : "#1e3a8a");
+        if (themeMeta) themeMeta.setAttribute("content", enabled ? "#0f172a" : "#2d5016");
         if (nightModeBtn) {
           nightModeBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
           nightModeBtn.title = enabled ? "Day mode" : "Night mode";
