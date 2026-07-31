@@ -4,7 +4,7 @@
   "description": "A fun animal encyclopedia for kids",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#f8fafc",
+  "background_color": "#f4f7ef",
   "theme_color": "#2d5016",
   "icons": [
     {
